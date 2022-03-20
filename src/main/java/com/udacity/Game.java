@@ -150,7 +150,48 @@ public class Game {
      */
     public String checkGameWinner(char [][]grid){
         String result = "None";
-        //Student code goes here ...
+
+        // 3 X’s in one line diagonally
+        if (grid[0][0] == 'x' && grid[1][1] == 'x' && grid[2][2] == 'x') return "X wins";
+        if (grid[0][2] == 'x' && grid[1][1] == 'x' && grid[2][0] == 'x') return "X wins";
+
+        // 3 O’s in one line diagonally
+        if (grid[0][0] == 'o' && grid[1][1] == 'o' && grid[2][2] == 'o') return "O wins";
+        if (grid[0][2] == 'o' && grid[1][1] == 'o' && grid[2][0] == 'o') return "O wins";
+
+        int emptyCells = 0;
+        int xInColumn;
+        int xInRow;
+        int oInColumn;
+        int oInRow;
+
+        for (int i = 0; i < 3; i++) {
+            xInColumn = 0;
+            xInRow = 0;
+            oInColumn = 0;
+            oInRow = 0;
+
+            for (int j = 0; j < 3; j++) {
+                // Check column "i"
+                if (grid[i][j] == 'x') xInColumn++;
+                if (grid[i][j] == 'o') oInColumn++;
+
+                // Check row "i"
+                if (grid[j][i] == 'x') xInRow++;
+                if (grid[j][i] == 'o') oInRow++;
+
+                // Count empty cells
+                if (grid[i][j] == '-') emptyCells++;
+            }
+
+            if (xInColumn == 3 || xInRow == 3) return "X wins";
+            if (oInColumn == 3 || oInRow == 3) return "O wins";
+        }
+
+        // The game has ended as a tie
+        if (emptyCells == 0) return "Tie";
+
+        // Game in progress
         return result;
     }
 
